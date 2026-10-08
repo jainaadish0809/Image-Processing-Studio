@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Image Processing Studio</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="top">
+    <h1>Image Processing Studio</h1>
+    <p>Upload a photo, run a computer-vision operation, and compare the result with the input. Everything runs in your browser; your image is never uploaded.</p>
+  </header>
+
+  <main class="layout">
+    <aside class="panel controls" aria-label="Controls">
+      <section>
+        <h2>Image</h2>
+        <label class="drop" for="file">
+          <span id="file-label">Choose a PNG, JPG, BMP or WebP (up to 5 MB)</span>
+          <input type="file" id="file" accept=".png,.jpg,.jpeg,.bmp,.webp">
+        </label>
+      </section>
+
+      <section>
+        <h2>Operation</h2>
+        <div id="op-list" class="op-list"></div>
+      </section>
+
+      <section>
+        <h2>Settings</h2>
+        <p id="op-description" class="muted">Pick an operation to see its settings.</p>
+        <div id="params"></div>
+        <button id="apply" type="button" class="primary" disabled>Apply operation</button>
+      </section>
+    </aside>
+
+    <section class="stage" aria-label="Results">
+      <p id="status" class="status" role="status" aria-live="polite">Upload an image to begin.</p>
+
+      <div class="views">
+        <figure>
+          <figcaption>Input</figcaption>
+          <div class="frame"><canvas id="img-input" class="view" role="img" aria-label="Input image" hidden></canvas></div>
+          <canvas id="hist-input" class="hist" width="320" height="90" aria-label="Input histogram"></canvas>
+        </figure>
+        <figure>
+          <figcaption>Result</figcaption>
+          <div class="frame"><canvas id="img-result" class="view" role="img" aria-label="Processed image" hidden></canvas></div>
+          <canvas id="hist-result" class="hist" width="320" height="90" aria-label="Result histogram"></canvas>
+        </figure>
+      </div>
+
+      <div class="actions">
+        <button id="commit" type="button" disabled>Use result as input</button>
+        <a id="download" class="button" download="result.png" aria-disabled="true">Download result</a>
+        <button id="reset" type="button" disabled>Reset to original</button>
+      </div>
+
+      <section class="info">
+        <h2>Steps applied</h2>
+        <ol id="pipeline" class="pipeline"><li class="muted">None yet</li></ol>
+      </section>
+
+      <section class="info">
+        <h2>Measurements (result)</h2>
+        <dl id="stats" class="stats"></dl>
+      </section>
+
+      <section class="info">
+        <h2>Activity log</h2>
+        <ul id="log" class="log"><li class="muted">Nothing yet</li></ul>
+      </section>
+    </section>
+  </main>
+
+  <script src="cv.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
